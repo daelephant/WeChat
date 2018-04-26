@@ -29,6 +29,24 @@ Page({
     });
   },
 
+  // onSwiperItemTap: function (event) {
+  //   var postId = event.currentTarget.dataset.postid;
+  //   // console.log("on post id is" + postId);
+  //   wx.navigateTo({
+  //     url: 'post-detail/post-detail?id=' + postId,
+  //   });
+  // },
+
+  onSwiperTap:function(event){
+    //target 和 currentTarget
+    //target指的是当前点击的组件 ，currentTargrt 指的是事件捕获的组件
+    //这里targrt指的是image，而currentTargrt指的是Swiper组件
+    var postId = event.target.dataset.postid;
+    wx.navigateTo({
+      url: 'post-detail/post-detail?id=' + postId,
+    });
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

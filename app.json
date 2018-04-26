@@ -1,13 +1,24 @@
-  {
-    "pages": [
-    "pages/wolcome/wolcome",
+{
+  "pages": [
     "pages/posts/post",
-    "pages/posts/post-detail/post-detail"
-
-
-    ],
-    "window":{
-      "navigationBarBackgroundColor":"#405f80"
-    }
-
+    "pages/wolcome/wolcome",
+    
+    "pages/posts/post-detail/post-detail",
+    "pages/movies/movies"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#405f80"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/movies/movies",
+        "text": "电影"
+      },
+      {
+        "pagePath": "pages/posts/post",
+        "text": "文章"
+      }
+    ]
   }
+}
