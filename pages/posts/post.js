@@ -1,3 +1,4 @@
+// RESTFul API JSON 非常轻量级。可以直接从javascript里面或者从移动端直接访问这接口
 var postsData = require('../../data/posts-data.js');
 
 Page({
