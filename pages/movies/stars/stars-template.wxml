@@ -1,12 +1,23 @@
 <template name="starsTemplate">
   <view class='stars-container'>
     <view class='stars'>
+      <block wx:for="{{stars}}" wx:for-item="i">
+        <image wx:if="{{i}}" src='/images/icon/star.png'></image>
+        <image wx:else src='/images/icon/none-star.png'></image>
+
+        <!-- <image wx:if="{{i==1}}" src='/images/icon/star.png'></image>
+        <image wx:elif="{{i==2}}" src='/images/icon/none-star.png'></image>
+        <image wx:elif="{{i==3}}" src=''></image>
+        <image wx:elif="{{i==3}}" src=''></image>
+        <image wx:else src=''></image> -->
+      </block>
+
+      <!-- <image src='/images/icon/star.png'></image>
       <image src='/images/icon/star.png'></image>
       <image src='/images/icon/star.png'></image>
       <image src='/images/icon/star.png'></image>
-      <image src='/images/icon/star.png'></image>
-      <image src='/images/icon/star.png'></image>
+      <image src='/images/icon/star.png'></image> -->
     </view>
-    <text class='star-score'>{{average}}</text>
+    <text class='star-score'>{{score?score:"暂无评分"}}</text>
   </view>
 </template>
