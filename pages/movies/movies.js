@@ -8,7 +8,10 @@ Page({
     //给预定的空值，以免界面异步加载的时候报未定义的错误，
     inTheaters: {},
     comingSoon: {},
-    top250: {}
+    top250: {},
+    containerShow: true,
+    searchPanelShow: false,
+    searchResult:{},
   },
 
   onLoad: function (event) {
@@ -16,16 +19,23 @@ Page({
     var comingSoonUrl = app.globalData.doubanBase + "/v2/movie/coming_soon" + "?start=0&count=3";
     var top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
 
-    this.getMovieListData(inTheatersUrl, "inTheaters","正在热映");
-    this.getMovieListData(comingSoonUrl, "comingSoon","即将上映");
-    this.getMovieListData(top250Url, "top250","豆瓣Top250");
+    this.getMovieListData(inTheatersUrl, "inTheaters", "正在热映");
+    this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
+    this.getMovieListData(top250Url, "top250", "豆瓣Top250");
   },
 
-  onMoreTap:function(event){
+  onMoreTap: function (event) {
     var category = event.currentTarget.dataset.category;
     //console.log(category);
     wx.navigateTo({
-      url: 'more-movie/more-movie?category='+category,
+      url: 'more-movie/more-movie?category=' + category,
+    })
+  },
+
+  onMovieTap:function(event){
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: 'movie-detail/movie-detail?id='+ movieId,
     })
   },
 
@@ -47,7 +57,31 @@ Page({
     })
   },
 
-  processDoubanData: function (moviesDouban, settedkey,categoryTitle) {
+  onCancelImgTap:function(event){
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      // 结果置空
+      searchResult:{}
+    });
+  },
+
+  onBindFocus: function (event) {
+    // console.log("show search");
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    });
+
+  },
+
+  onBindChange:function(event){
+    var text = event.detail.value;
+    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
+    this.getMovieListData(searchUrl,"searchResult","");
+  },
+
+  processDoubanData: function (moviesDouban, settedkey, categoryTitle) {
     var movies = [];
     for (var idx in moviesDouban.subjects) {
       var subject = moviesDouban.subjects[idx];
@@ -73,7 +107,7 @@ Page({
     var readyData = {};
     readyData[settedkey] = {
       movies: movies,
-      categoryTitle:categoryTitle
+      categoryTitle: categoryTitle
     };
     this.setData(readyData);//这种方法设置变量为键名
   }

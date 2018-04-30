@@ -6,5 +6,7 @@
 }
 
 .grid-container{
+  height: 1300rpx;
+  /* 在Iphone6尺寸上面物理分辨率是1336个像素（px），这里再减去导航栏，大概是1300 */
   margin: 40rpx 0 40rpx 6rpx;
 }
