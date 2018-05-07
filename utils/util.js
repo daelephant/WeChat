@@ -36,6 +36,18 @@ function convertToStarsArray(stars) {
   return array;
 }
 
+function convertToCastInfos(casts) {
+  var castsArray = []
+  for (var idx in casts) {
+    var cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large : "",
+      name: casts[idx].name
+    }
+    castsArray.push(cast);
+  }
+  return castsArray;
+}
+
 function http(url,callBack) {
   wx.request({
     url: url,
@@ -55,7 +67,9 @@ function http(url,callBack) {
 module.exports = {
   formatTime: formatTime,
   convertToStarsArray: convertToStarsArray,
-  http:http
+  http:http,
+  convertToCastString: convertToCastString,
+  convertToCastInfos: convertToCastInfos
 }
 
 

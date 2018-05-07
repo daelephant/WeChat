@@ -2,16 +2,16 @@ var util = require('../../../utils/util.js');
 var app = getApp();
 Page({
   data: {
-    movoie: movie
+    movie: {}
   },
   onLoad: function (options) {
     //页面初始化 options为页面跳转所带来的参数
     var movieId = options.id;
-    var url = app.globalData.doubanBase + "/v2/movie/subject/" +movieId;
-    util.http(url,this.processDoubanData);
+    var url = app.globalData.doubanBase + "/v2/movie/subject/" + movieId;
+    util.http(url, this.processDoubanData);
   },
 
-  processDoubanData:function(data){
+  processDoubanData: function (data) {
     if (!data) {
       return;
     }
@@ -44,8 +44,17 @@ Page({
       castsInfo: util.convertToCastInfos(data.casts),
       summary: data.summary
     }
+    // console.log(movie);
     this.setData({
-      movie:movie
+      movie: movie
     });
-  }
+  },
+  /*查看图片*/
+  viewMoviePostImg: function (e) {
+    var src = e.currentTarget.dataset.src;
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: [src] // 需要预览的图片http链接列表
+    })
+  },
 })
